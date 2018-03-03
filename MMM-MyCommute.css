@@ -6,6 +6,10 @@
     min-width: 300px;
 }
 
+.MMM-MyCommute .row .map {
+    margin: 15px 0;
+}
+
 .MMM-MyCommute .transit-mode {
     width: 24px;
     text-align: center;
