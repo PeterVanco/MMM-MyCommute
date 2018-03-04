@@ -35,29 +35,12 @@ Module.register('MMM-MyCommute', {
                 mode: 'walking',
                 time: null
             },
-            {
-                destination: '317 Dundas St W, Toronto, ON M5T 1G4',
-                label: 'Art Gallery of Ontario',
-                mode: 'transit',
-                time: null
-            },
-            {
-                destination: '55 Mill St, Toronto, ON M5A 3C4',
-                label: 'Distillery',
-                mode: 'bicycling',
-                time: null
-            },
-            {
-                destination: '6301 Silver Dart Dr, Mississauga, ON L5P 1B2',
-                label: 'Pearson Airport',
-                time: null
-            }
         ]
     },
 
     // Define required scripts.
     getScripts: function() {
-        return ["moment.js", this.file("node_modules/moment-duration-format/lib/moment-duration-format.js")]; //, "require.js"
+        return [this.file('mapStyle.js'), "moment.js", this.file("node_modules/moment-duration-format/lib/moment-duration-format.js")]; //, "require.js"
     },
 
     // Define required styles.
@@ -108,254 +91,23 @@ Module.register('MMM-MyCommute', {
         'other': 'streetcar'
     },
 
-    dark_roadmap: [
-        {
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#1d2c4d"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#8ec3b9"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#1a3646"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.country",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#4b6878"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.land_parcel",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#64779e"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.province",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#4b6878"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape.man_made",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#334e87"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape.natural",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#023e58"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#283d6a"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#6f9ba5"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#1d2c4d"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#023e58"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#3C7680"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#304a7d"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#98a5be"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#1d2c4d"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#2c6675"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#255763"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#b0d5ce"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#023e58"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#98a5be"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#1d2c4d"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.line",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#283d6a"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#3a4762"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#0e1626"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#4e6d70"
-                }
-            ]
-        }
-    ],
+    mapCache: [],
 
     start: function() {
 
         Log.info('Starting module: ' + this.name);
 
-        this.predictions = new Array();
+        this.predictions = [];
         this.loading = true;
         this.inWindow = true;
         this.isHidden = false;
 
-        //start data poll
         this.getData();
-        var self = this;
+
+        const self = this;
         setInterval(function() {
             self.getData();
+            self.updateDom(1000);
         }, this.config.pollFrequency);
 
     },
@@ -399,6 +151,9 @@ Module.register('MMM-MyCommute', {
 
         //only poll if in window
         if (this.isInWindow(this.config.startTime, this.config.endTime, this.config.hideDays)) {
+
+            console.log("Getting directions");
+
             //build URLs
             var destinations = new Array();
             for (var i = 0; i < this.config.destinations.length; i++) {
@@ -499,112 +254,109 @@ Module.register('MMM-MyCommute', {
         params += '&departure_time=now'; //needed for time based on traffic conditions
 
         return params;
+    },
 
+    prepareRouteParams: function(destination) {
+
+        const travelModes = {
+            driving: google.maps.TravelMode.DRIVING,
+            walking: google.maps.TravelMode.WALKING,
+            bicycling: google.maps.TravelMode.BICYCLING,
+            transit: google.maps.TravelMode.TRANSIT,
+        };
+
+        let routeParams = {
+            origin: this.config.origin,
+            destination: destination.config.destination,
+        };
+
+        //travel mode
+        routeParams.travelMode = google.maps.TravelMode.DRIVING;
+        if (destination.config.mode && travelModes.hasOwnProperty(destination.config.mode)) {
+            routeParams.travelMode = travelModes[destination.config.mode];
+        }
+
+        // if (mode == 'transit' && destination.transitMode) {
+        //     var tModes = destination.transitMode.split("|");
+        //     var sanitizedTransitModes = '';
+        //     for (var i = 0; i < tModes.length; i++) {
+        //         if (this.transitModes.indexOf(tModes[i]) != -1) {
+        //             sanitizedTransitModes += (sanitizedTransitModes == '' ? tModes[i] : "|" + tModes[i]);
+        //         }
+        //     }
+        //     if (sanitizedTransitModes.length > 0) {
+        //         params += '&transit_mode=' + sanitizedTransitModes;
+        //     }
+        // }
+
+        if (destination.alternatives === true) {
+            routeParams.alternatives = true;
+        }
+        return routeParams;
     },
 
     getPredictions: function(payload) {
-        var self = this;
+        const self = this;
 
-        var returned = 0;
-        var predictions = new Array();
-
-
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://maps.googleapis.com/maps/api/js?key=" + this.config.apikey;
-
-        script.onload = function() {
-
-            var travelModes = {
-                driving: google.maps.TravelMode.DRIVING,
-                walking: google.maps.TravelMode.WALKING,
-                bicycling: google.maps.TravelMode.BICYCLING,
-                transit: google.maps.TravelMode.TRANSIT,
-            };
-
+        if (typeof self.directionsService !== 'undefined' && self.directionsService) {
             payload.destinations.forEach(function(dest, index) {
+                let routeParams = self.prepareRouteParams(dest);
 
-                var directionsService = new google.maps.DirectionsService;
-
-                routeParams = {
-                    origin: self.config.origin,
-                    destination: dest.config.destination,
-                    // travelMode: google.maps.TravelMode.DRIVING,
-                };
-
-                //travel mode
-                routeParams.travelMode = google.maps.TravelMode.DRIVING;
-                if (dest.config.mode && travelModes.hasOwnProperty(dest.config.mode)) {
-                    routeParams.travelMode = travelModes[dest.config.mode];
-                }
-
-                // if (mode == 'transit' && dest.transitMode) {
-                //     var tModes = dest.transitMode.split("|");
-                //     var sanitizedTransitModes = '';
-                //     for (var i = 0; i < tModes.length; i++) {
-                //         if (this.transitModes.indexOf(tModes[i]) != -1) {
-                //             sanitizedTransitModes += (sanitizedTransitModes == '' ? tModes[i] : "|" + tModes[i]);
-                //         }
-                //     }
-                //     if (sanitizedTransitModes.length > 0) {
-                //         params += '&transit_mode=' + sanitizedTransitModes;
-                //     }
-                // }
-
-                if (dest.alternatives == true) {
-                    params += '&alternatives=true';
-                }
-
-                directionsService.route(routeParams, function(response, status) {
+                self.directionsService.route(routeParams, function(response, status) {
                     Log.info(response);
-                    self.renderPrediction(dest, index, response, status);
+                    self.preparePrediction(dest, index, response, status);
                     self.loadPredictions();
                     self.isHidden = false;
                 });
             });
+        } else {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://maps.googleapis.com/maps/api/js?key=" + this.config.apikey;
 
-        };
+            script.onload = function() {
+                self.directionsService = new google.maps.DirectionsService;
+                self.getPredictions(payload);
+            };
 
-        self.scriptWrapper = script;
+            this.scriptWrapper = script;
+        }
     },
 
-    renderPrediction: function(dest, index, response, status) {
+    preparePrediction: function(dest, index, response, status) {
 
         if (status == google.maps.DirectionsStatus.OK) {
 
-            var prediction = new Object({
+            const prediction = new Object({
                 config: dest.config,
                 rawResponse: response,
             });
 
-            // var data = JSON.parse(body);
-            var data = response;
-
-            if (data.error_message) {
-                console.log("MMM-MyCommute: " + data.error_message);
+            if (response.error_message) {
+                console.log("MMM-MyCommute: " + response.error_message);
                 prediction.error = true;
             } else {
 
-                var routeList = new Array();
-                for (var i = 0; i < data.routes.length; i++) {
-                    var r = data.routes[i];
-                    var routeObj = new Object({
-                        summary: r.summary,
-                        time: r.legs[0].duration.value
-                    });
+                let routeList = [];
+                for (let i = 0; i < response.routes.length; i++) {
+                    let route = response.routes[i];
+                    let routeObj = {
+                        summary: route.summary,
+                        time: route.legs[0].duration.value
+                    };
 
-                    if (r.legs[0].duration_in_traffic) {
-                        routeObj.timeInTraffic = r.legs[0].duration_in_traffic.value;
+                    if (route.legs[0].duration_in_traffic) {
+                        routeObj.timeInTraffic = route.legs[0].duration_in_traffic.value;
                     }
                     if (dest.config.mode && dest.config.mode == 'transit') {
-                        var transitInfo = new Array();
-                        var gotFirstTransitLeg = false;
-                        for (var j = 0; j < r.legs[0].steps.length; j++) {
-                            var s = r.legs[0].steps[j];
+                        let transitInfo = [];
+                        let gotFirstTransitLeg = false;
+                        for (let j = 0; j < route.legs[0].steps.length; j++) {
+                            let s = route.legs[0].steps[j];
 
                             s.transit_details = s.transit;
                             if (s.transit_details) {
-                                var arrivalTime = '';
+                                let arrivalTime = '';
                                 if (!gotFirstTransitLeg && dest.config.showNextVehicleDeparture) {
                                     gotFirstTransitLeg = true;
                                     // arrivalTime = ' <span class="transit-arrival-time">(next at ' + s.transit_details.departure_time.text + ')</span>';
@@ -633,12 +385,11 @@ Module.register('MMM-MyCommute', {
 
     },
 
-
     svgIconFactory: function(glyph) {
 
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttributeNS(null, "class", "transit-mode-icon");
-        var use = document.createElementNS('http://www.w3.org/2000/svg', "use");
+        const use = document.createElementNS('http://www.w3.org/2000/svg', "use");
         use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "modules/MMM-MyCommute/icon_sprite.svg#" + glyph);
         svg.appendChild(use);
 
@@ -647,12 +398,12 @@ Module.register('MMM-MyCommute', {
 
     formatTime: function(time, timeInTraffic) {
 
-        var timeEl = document.createElement("span");
+        const timeEl = document.createElement("span");
         timeEl.classList.add("travel-time");
         if (timeInTraffic != null) {
             timeEl.innerHTML = moment.duration(Number(timeInTraffic), "seconds").format(this.config.travelTimeFormat, {trim: this.config.travelTimeFormatTrim});
 
-            var variance = timeInTraffic / time;
+            const variance = timeInTraffic / time;
             if (this.config.colorCodeTravelTime) {
                 if (variance > this.config.poorTimeThreshold) {
                     timeEl.classList.add("status-poor");
@@ -673,11 +424,10 @@ Module.register('MMM-MyCommute', {
     },
 
     getTransitIcon: function(dest, route) {
-
-        var transitIcon;
+        let transitIcon;
 
         if (dest.transitMode) {
-            var transitIcon = dest.transitMode.split("|")[0];
+            transitIcon = dest.transitMode.split("|")[0];
             if (this.symbols[transitIcon] != null) {
                 transitIcon = this.symbols[transitIcon];
             } else {
@@ -688,18 +438,17 @@ Module.register('MMM-MyCommute', {
         }
 
         return transitIcon;
-
     },
 
     buildTransitSummary: function(transitInfo, summaryContainer) {
 
-        for (var i = 0; i < transitInfo.length; i++) {
+        for (let i = 0; i < transitInfo.length; i++) {
 
-            var transitLeg = document.createElement("span");
+            const transitLeg = document.createElement("span");
             transitLeg.classList.add('transit-leg');
             transitLeg.appendChild(this.svgIconFactory(this.symbols[transitInfo[i].vehicle.toLowerCase()]));
 
-            var routeNumber = document.createElement("span");
+            const routeNumber = document.createElement("span");
             routeNumber.innerHTML = transitInfo[i].routeLabel;
 
             if (transitInfo[i].arrivalTime) {
@@ -712,402 +461,183 @@ Module.register('MMM-MyCommute', {
 
     },
 
-
     getDom: function() {
 
-        var wrapper = document.createElement("div");
-
         if (this.loading) {
-            var loading = document.createElement("div");
-            loading.innerHTML = this.translate("LOADING");
-            loading.className = "dimmed light small";
-            wrapper.appendChild(loading);
-            if (typeof this.scriptWrapper != 'undefined' && this.scriptWrapper) {
-                wrapper.appendChild(this.scriptWrapper);
-            }
-            return wrapper;
+            return this.loadingDom();
         }
 
-        for (var i = 0; i < this.predictions.length; i++) {
+        let wrapper = document.createElement("div");
 
-            var p = this.predictions[i];
+        for (let i = 0; i < this.predictions.length; i++) {
 
-            var row = document.createElement("div");
+            let prediction = this.predictions[i];
+
+            let row = document.createElement("div");
             row.classList.add("row");
 
-            var destination = document.createElement("span");
+            let destination = document.createElement("span");
             destination.className = "destination-label bright";
-            destination.innerHTML = p.config.label;
+            destination.innerHTML = prediction.config.label;
             row.appendChild(destination);
 
-            var icon = document.createElement("span");
+            let icon = document.createElement("span");
             icon.className = "transit-mode bright";
-            var symbolIcon = 'car';
+
+            let symbolIcon = 'car';
             if (this.config.destinations[i].color) {
-                icon.setAttribute("style", "color:" + p.config.color);
+                icon.setAttribute("style", "color:" + prediction.config.color);
             }
 
-            if (p.config.mode && this.symbols[p.config.mode]) {
-                symbolIcon = this.symbols[p.config.mode];
+            if (prediction.config.mode && this.symbols[prediction.config.mode]) {
+                symbolIcon = this.symbols[prediction.config.mode];
             }
 
-            //different rendering for single route vs multiple
-            if (p.error) {
-
-                //no routes available.  display an error instead.
-                var errorTxt = document.createElement("span");
-                errorTxt.classList.add("route-error");
-                errorTxt.innerHTML = "Error";
-                row.appendChild(errorTxt);
-
-            } else if (p.routes.length == 1 || !this.config.showSummary) {
-
-                var r = p.routes[0];
-
-                row.appendChild(this.formatTime(r.time, r.timeInTraffic));
-
-                //summary?
-                if (this.config.showSummary) {
-                    var summary = document.createElement("div");
-                    summary.classList.add("route-summary");
-
-                    if (r.transitInfo) {
-
-                        symbolIcon = this.getTransitIcon(p.config, r);
-                        this.buildTransitSummary(r.transitInfo, summary);
-
-                    } else {
-                        summary.innerHTML = r.summary;
-                    }
-                    row.appendChild(summary);
-                }
-
-
+            if (prediction.error) {
+                this.getDomPredictionError(row);
+            } else if (prediction.routes.length === 1 || !this.config.showSummary) {
+                symbolIcon = this.getDomSinglePrediction(row, prediction, symbolIcon);
             } else {
-
-                row.classList.add("with-multiple-routes");
-
-                for (var j = 0; j < p.routes.length; j++) {
-                    var routeSummaryOuter = document.createElement("div");
-                    routeSummaryOuter.classList.add("route-summary-outer");
-
-                    var r = p.routes[j];
-
-                    routeSummaryOuter.appendChild(this.formatTime(r.time, r.timeInTraffic));
-
-                    var summary = document.createElement("div");
-                    summary.classList.add("route-summary");
-
-                    if (r.transitInfo) {
-                        symbolIcon = this.getTransitIcon(p.config, r);
-                        this.buildTransitSummary(r.transitInfo, summary);
-
-                    } else {
-                        summary.innerHTML = r.summary;
-                    }
-                    routeSummaryOuter.appendChild(summary);
-                    row.appendChild(routeSummaryOuter);
-
-                }
-
+                symbolIcon = this.getDomMultiplePredictions(row, prediction, symbolIcon);
             }
 
-
-            var svg = this.svgIconFactory(symbolIcon);
-            icon.appendChild(svg);
+            icon.appendChild(this.svgIconFactory(symbolIcon));
             row.appendChild(icon);
 
-            if (p.config.hasOwnProperty("map")) {
-                row.appendChild(this.renderMap(p));
+            if (prediction.config.hasOwnProperty("map")) {
+                row.appendChild(this.renderMap(prediction));
             }
 
-            if (p.config.hasOwnProperty("tts")) {
-                var r = p.routes[0];
-                if (!r.hasOwnProperty("ttsPlayed")) {
-                    const message = p.config.tts.replace("{duration}", Math.round(r.time / 60));
+            if (prediction.config.hasOwnProperty("tts")) {
+                let route = prediction.routes[0];
+                if (!route.hasOwnProperty("ttsPlayed")) {
+                    const message = prediction.config.tts.replace("{duration}", Math.round(route.time / 60));
                     console.log(message);
                     this.sendNotification('MMM-TTS', message);
-                    r.ttsPlayed = true;
+                    route.ttsPlayed = true;
                 }
             }
 
             wrapper.appendChild(row);
         }
 
-
         // this.sendNotification('MMM-TTS', 'Directions were loaded!');
 
-        if (this.predictions.length == this.config.destinations.length) {
+        if (this.predictions.length === this.config.destinations.length) {
             // this.sendNotification('MMM-TTS', 'Údaje o doprave boli načítané');
         }
         return wrapper;
+
+    },
+
+    loadingDom: function() {
+        let loading = document.createElement("div");
+        loading.innerHTML = this.translate("LOADING");
+        loading.className = "dimmed light small";
+        if (typeof this.scriptWrapper !== 'undefined' && this.scriptWrapper) {
+            loading.appendChild(this.scriptWrapper);
+        }
+        return loading;
+    },
+
+    getDomPredictionError: function(row) {
+        //no routes available - display an error instead.
+        let errorTxt = document.createElement("span");
+        errorTxt.classList.add("route-error");
+        errorTxt.innerHTML = "Error";
+        row.appendChild(errorTxt);
+    },
+
+    getDomSinglePrediction: function(row, predictions, symbolIcon) {
+
+        let route = predictions.routes[0];
+        row.appendChild(this.formatTime(route.time, route.timeInTraffic));
+
+        //summary?
+        if (this.config.showSummary) {
+            let summary = document.createElement("div");
+            summary.classList.add("route-summary");
+
+            if (route.transitInfo) {
+                symbolIcon = this.getTransitIcon(predictions.config, route);
+                this.buildTransitSummary(route.transitInfo, summary);
+            } else {
+                summary.innerHTML = route.summary;
+            }
+            row.appendChild(summary);
+        }
+
+        return symbolIcon;
+    },
+
+    getDomMultiplePredictions: function(row, p, symbolIcon) {
+        row.classList.add("with-multiple-routes");
+
+        for (var j = 0; j < p.routes.length; j++) {
+            var routeSummaryOuter = document.createElement("div");
+            routeSummaryOuter.classList.add("route-summary-outer");
+
+            var r = p.routes[j];
+
+            routeSummaryOuter.appendChild(this.formatTime(r.time, r.timeInTraffic));
+
+            var summary = document.createElement("div");
+            summary.classList.add("route-summary");
+
+            if (r.transitInfo) {
+                symbolIcon = this.getTransitIcon(p.config, r);
+                this.buildTransitSummary(r.transitInfo, summary);
+
+            } else {
+                summary.innerHTML = r.summary;
+            }
+            routeSummaryOuter.appendChild(summary);
+            row.appendChild(routeSummaryOuter);
+
+        }
+        return symbolIcon;
     },
 
     renderMap: function(prediction) {
 
-        mapWrapper = document.createElement("div");
-        mapWrapper.className += " map";
-        mapWrapper.style.height = prediction.config.map.height;
-        mapWrapper.style.width = prediction.config.map.width;
+        if (prediction.config.label in this.mapCache) {
+            this.mapCache[prediction.config.label].directionsRenderer.setDirections(prediction.rawResponse);
+        } else {
 
-        map = new google.maps.Map(mapWrapper, {
-            zoom: 13,
-            // mapTypeControlOptions: {
-            //     mapTypeIds: ['roadmap', 'dark_roadmap']
-            // },
-            styles: [
-                {
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#1d2c4d"
-                        }
-                    ]
-                },
-                {
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#8ec3b9"
-                        }
-                    ]
-                },
-                {
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "color": "#1a3646"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.country",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#4b6878"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.land_parcel",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#64779e"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.province",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#4b6878"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "landscape.man_made",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#334e87"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "landscape.natural",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#023e58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#283d6a"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#6f9ba5"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "color": "#1d2c4d"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi.park",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "color": "#023e58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi.park",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#3C7680"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#304a7d"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#98a5be"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "color": "#1d2c4d"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#2c6675"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#255763"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#b0d5ce"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "color": "#023e58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#98a5be"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "color": "#1d2c4d"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit.line",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "color": "#283d6a"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit.station",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#3a4762"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#0e1626"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "color": "#4e6d70"
-                        }
-                    ]
-                }
-            ],
-            disableDefaultUI: true
-        });
+            const mapWrapper = document.createElement("div");
+            mapWrapper.className += " map";
+            mapWrapper.style.height = prediction.config.map.height;
+            mapWrapper.style.width = prediction.config.map.width;
 
-        // map.mapTypes.set('dark_roadmap', this.dark_roadmap);
-        // map.setMapTypeId('dark_roadmap');
+            const map = new google.maps.Map(mapWrapper, {
+                zoom: 13,
+                styles: dark_roadmap,
+                disableDefaultUI: true,
+            });
 
-        trafficLayer = new google.maps.TrafficLayer();
-        directionsRenderer = new google.maps.DirectionsRenderer();
-
-        // trafficLayer.setMap(map);
-        directionsRenderer.setMap(map);
-
-        directionsRenderer.setDirections(prediction.rawResponse);
-        if (prediction.config.map.hasOwnProperty("zoom")) {
-            // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-            //     map.setZoom(prediction.config.map.zoom);
+            // trafficLayer = new google.maps.TrafficLayer({
+            //     map: map,
             // });
+
+            const directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map,
+                directions: prediction.rawResponse,
+                suppressMarkers: true,
+                polylineOptions: {
+                    strokeColor: "red"
+                }
+            });
+
+            if (prediction.config.map.hasOwnProperty("zoom")) {
+                // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                //     map.setZoom(prediction.config.map.zoom);
+                // });
+            }
+
+            this.mapCache[prediction.config.label] = {mapWrapper, map, directionsRenderer};
         }
 
-        return mapWrapper;
+        return this.mapCache[prediction.config.label].mapWrapper;
     },
 
     socketNotificationReceived: function(notification, payload) {
