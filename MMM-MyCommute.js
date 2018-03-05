@@ -112,7 +112,7 @@ Module.register('MMM-MyCommute', {
         let motionDetected = true;
         MM.getModules().withClass('motion').enumerate(function(module) {
             if (typeof module.isMotionDetected === "function") {
-                motionDetected = module.isMotionDetected();
+                // motionDetected = module.isMotionDetected();
             }
         });
 
