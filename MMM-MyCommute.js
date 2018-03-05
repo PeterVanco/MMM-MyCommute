@@ -103,13 +103,32 @@ Module.register('MMM-MyCommute', {
         this.isHidden = false;
 
         this.getData();
+        this.rescheduleInterval();
+    },
 
+    refresh: function() {
         const self = this;
-        setInterval(function() {
+
+        let motionDetected = true;
+        MM.getModules().withClass('motion').enumerate(function(module) {
+            if (typeof module.isMotionDetected === "function") {
+                motionDetected = module.isMotionDetected();
+            }
+        });
+
+        if (motionDetected === true) {
+            console.log("Refreshing directions");
             self.getData();
             self.updateDom(1000);
-        }, this.config.pollFrequency);
+        }
+    },
 
+    rescheduleInterval: function() {
+        console.log("Rescheduling directions interval");
+        if (this.loading !== true) {
+            this.refresh();
+        }
+        this.interval = setInterval(this.refresh, this.config.pollFrequency);
     },
 
     /*
@@ -667,6 +686,8 @@ Module.register('MMM-MyCommute', {
         if (notification == 'DOM_OBJECTS_CREATED' && !this.inWindow) {
             this.hide(0, {lockString: this.identifier});
             this.isHidden = true;
+        } else if (notification == 'MOTION_DETECTED') {
+            this.rescheduleInterval();
         }
     }
 
