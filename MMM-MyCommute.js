@@ -289,6 +289,7 @@ Module.register('MMM-MyCommute', {
         let routeParams = {
             origin: this.config.origin,
             destination: destination.config.destination,
+            provideRouteAlternatives: true,
             drivingOptions: {
                 departureTime: new Date(),
                 //trafficModel: 'bestguess',
