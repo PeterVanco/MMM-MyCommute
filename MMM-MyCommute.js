@@ -28,7 +28,7 @@ Module.register('MMM-MyCommute', {
         travelTimeFormat: "m [min]",
         travelTimeFormatTrim: "left",
         pollFrequency: 10 * 60 * 1000, //every ten minutes, in milliseconds
-        ttsEnabled: false,
+        ttsEnabled: true,
         destinations: [
             {
                 destination: '40 Bay St, Toronto, ON M5J 2X2',
@@ -289,6 +289,10 @@ Module.register('MMM-MyCommute', {
         let routeParams = {
             origin: this.config.origin,
             destination: destination.config.destination,
+            drivingOptions: {
+                departureTime: new Date(),
+                //trafficModel: 'bestguess',
+            }
         };
 
         //travel mode
@@ -363,7 +367,8 @@ Module.register('MMM-MyCommute', {
                     let route = response.routes[i];
                     let routeObj = {
                         summary: route.summary,
-                        time: route.legs[0].duration.value
+                        time: route.legs[0].duration.value,
+                        bounds: route.bounds,
                     };
 
                     if (route.legs[0].duration_in_traffic) {
@@ -381,12 +386,12 @@ Module.register('MMM-MyCommute', {
                                 if (!gotFirstTransitLeg && dest.config.showNextVehicleDeparture) {
                                     gotFirstTransitLeg = true;
                                     // arrivalTime = ' <span class="transit-arrival-time">(next at ' + s.transit_details.departure_time.text + ')</span>';
-                                    arrivalTime = moment(s.transit_details.departure_time.value * 1000);
+                                    arrivalTime = s.transit_details.departure_time.text;
                                 }
                                 transitInfo.push({
                                     routeLabel: s.transit_details.line.short_name ? s.transit_details.line.short_name : s.transit_details.line.name,
                                     vehicle: s.transit_details.line.vehicle.type,
-                                    arrivalTime: arrivalTime
+                                    arrivalTime: arrivalTime,
                                 });
                             }
                             routeObj.transitInfo = transitInfo;
@@ -473,7 +478,7 @@ Module.register('MMM-MyCommute', {
             routeNumber.innerHTML = transitInfo[i].routeLabel;
 
             if (transitInfo[i].arrivalTime) {
-                routeNumber.innerHTML = routeNumber.innerHTML + " (" + moment(transitInfo[i].arrivalTime).format(this.config.nextTransitVehicleDepartureFormat) + ")";
+                routeNumber.innerHTML = routeNumber.innerHTML + " (" + this.config.nextTransitVehicleDepartureFormat.replace('[next at]', transitInfo[i].arrivalTime) + ")";
             }
 
             transitLeg.appendChild(routeNumber);
@@ -532,8 +537,8 @@ Module.register('MMM-MyCommute', {
             if (this.config.ttsEnabled === true && prediction.config.hasOwnProperty("tts")) {
                 let route = prediction.routes[0];
                 if (!route.hasOwnProperty("ttsPlayed")) {
-                    const message = prediction.config.tts.replace("{duration}", Math.round(route.time / 60));
-                    console.log(message);
+                    const routeTime = route.timeInTraffic != null ? route.timeInTraffic : route.time;
+                    const message = prediction.config.tts.replace("{duration}", moment.duration(Number(routeTime), "seconds").format("m"));
                     this.sendNotification('MMM-TTS', message);
                     route.ttsPlayed = true;
                 }
@@ -615,44 +620,75 @@ Module.register('MMM-MyCommute', {
 
     renderMap: function(prediction) {
 
-        if (prediction.config.label in this.mapCache) {
-            this.mapCache[prediction.config.label].directionsRenderer.setDirections(prediction.rawResponse);
-        } else {
+        // if (prediction.config.label in this.mapCache) {
+        //     this.mapCache[prediction.config.label].directionsRenderer.setDirections(prediction.rawResponse);
+        // } else {
+        //
 
-            const mapWrapper = document.createElement("div");
-            mapWrapper.className += " map";
-            mapWrapper.style.height = prediction.config.map.height;
-            mapWrapper.style.width = prediction.config.map.width;
+        const mapWrapper = document.createElement("div");
+        mapWrapper.className += " map";
+        mapWrapper.style.height = prediction.config.map.height;
+        mapWrapper.style.width = prediction.config.map.width;
 
-            const map = new google.maps.Map(mapWrapper, {
-                zoom: 13,
-                styles: dark_roadmap,
-                disableDefaultUI: true,
-            });
+        const map = new google.maps.Map(mapWrapper, {
+            zoom: 13,
+            styles: dark_roadmap,
+            disableDefaultUI: true,
+        });
 
-            // trafficLayer = new google.maps.TrafficLayer({
-            //     map: map,
-            // });
+        // trafficLayer = new google.maps.TrafficLayer({
+        //     map: map,
+        // });
 
-            const directionsRenderer = new google.maps.DirectionsRenderer({
-                map: map,
-                directions: prediction.rawResponse,
-                suppressMarkers: true,
-                polylineOptions: {
-                    strokeColor: "red"
-                }
-            });
-
-            if (prediction.config.map.hasOwnProperty("zoom")) {
-                // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-                //     map.setZoom(prediction.config.map.zoom);
-                // });
+        const directionsRenderer = new google.maps.DirectionsRenderer({
+            map: map,
+            directions: prediction.rawResponse,
+            suppressMarkers: true,
+            polylineOptions: {
+                strokeColor: "red"
             }
+        });
 
-            this.mapCache[prediction.config.label] = {mapWrapper, map, directionsRenderer};
+        if (prediction.config.map.hasOwnProperty("zoom")) {
+            // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+            //     map.setZoom(prediction.config.map.zoom);
+            // });
         }
 
+        this.mapCache[prediction.config.label] = {mapWrapper, map, directionsRenderer};
+
+        // }
+
+        const self = this;
+        setTimeout(function() {
+            self.mapCache[prediction.config.label].map.fitBounds(prediction.routes[0].bounds);
+            let padding = 10;
+            let newBounds = self.paddedBounds(self.mapCache[prediction.config.label].map, prediction.routes[0].bounds, padding, padding, padding, padding);
+            self.mapCache[prediction.config.label].map.fitBounds(newBounds);
+        }, 1000);
+
+        self.mapCache[prediction.config.label].map.fitBounds(prediction.routes[0].bounds);
         return this.mapCache[prediction.config.label].mapWrapper;
+    },
+
+    paddedBounds: function(map, bounds, npad, spad, epad, wpad) {
+        var SW = bounds.getSouthWest();
+        var NE = bounds.getNorthEast();
+        var topRight = map.getProjection().fromLatLngToPoint(NE);
+        var bottomLeft = map.getProjection().fromLatLngToPoint(SW);
+        var scale = Math.pow(2, map.getZoom());
+
+        var SWtopoint = map.getProjection().fromLatLngToPoint(SW);
+        var SWpoint = new google.maps.Point(((SWtopoint.x - bottomLeft.x) * scale) + wpad, ((SWtopoint.y - topRight.y) * scale) - spad);
+        var SWworld = new google.maps.Point(SWpoint.x / scale + bottomLeft.x, SWpoint.y / scale + topRight.y);
+        var pt1 = map.getProjection().fromPointToLatLng(SWworld);
+
+        var NEtopoint = map.getProjection().fromLatLngToPoint(NE);
+        var NEpoint = new google.maps.Point(((NEtopoint.x - bottomLeft.x) * scale) - epad, ((NEtopoint.y - topRight.y) * scale) + npad);
+        var NEworld = new google.maps.Point(NEpoint.x / scale + bottomLeft.x, NEpoint.y / scale + topRight.y);
+        var pt2 = map.getProjection().fromPointToLatLng(NEworld);
+
+        return new google.maps.LatLngBounds(pt1, pt2);
     },
 
     socketNotificationReceived: function(notification, payload) {
