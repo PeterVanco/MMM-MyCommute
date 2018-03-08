@@ -107,8 +107,6 @@ Module.register('MMM-MyCommute', {
     },
 
     refresh: function() {
-        const self = this;
-
         let motionDetected = true;
         MM.getModules().withClass('motion').enumerate(function(module) {
             if (typeof module.isMotionDetected === "function") {
@@ -118,17 +116,20 @@ Module.register('MMM-MyCommute', {
 
         if (motionDetected === true) {
             console.log("Refreshing directions");
-            self.getData();
-            self.updateDom(1000);
+            this.getData();
+            this.updateDom(1000);
         }
     },
 
     rescheduleInterval: function() {
+        const self = this;
         console.log("Rescheduling directions interval");
         if (this.loading !== true) {
             this.refresh();
         }
-        this.interval = setInterval(this.refresh, this.config.pollFrequency);
+        this.interval = setInterval(function() {
+            self.refresh();
+        }, this.config.pollFrequency);
     },
 
     /*
