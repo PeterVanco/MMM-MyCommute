@@ -28,6 +28,7 @@ Module.register('MMM-MyCommute', {
         travelTimeFormat: "m [min]",
         travelTimeFormatTrim: "left",
         pollFrequency: 10 * 60 * 1000, //every ten minutes, in milliseconds
+        ttsEnabled: false,
         destinations: [
             {
                 destination: '40 Bay St, Toronto, ON M5J 2X2',
@@ -528,7 +529,7 @@ Module.register('MMM-MyCommute', {
                 row.appendChild(this.renderMap(prediction));
             }
 
-            if (prediction.config.hasOwnProperty("tts")) {
+            if (this.config.ttsEnabled === true && prediction.config.hasOwnProperty("tts")) {
                 let route = prediction.routes[0];
                 if (!route.hasOwnProperty("ttsPlayed")) {
                     const message = prediction.config.tts.replace("{duration}", Math.round(route.time / 60));
@@ -541,13 +542,7 @@ Module.register('MMM-MyCommute', {
             wrapper.appendChild(row);
         }
 
-        // this.sendNotification('MMM-TTS', 'Directions were loaded!');
-
-        if (this.predictions.length === this.config.destinations.length) {
-            // this.sendNotification('MMM-TTS', 'Údaje o doprave boli načítané');
-        }
         return wrapper;
-
     },
 
     loadingDom: function() {
@@ -687,8 +682,11 @@ Module.register('MMM-MyCommute', {
         if (notification == 'DOM_OBJECTS_CREATED' && !this.inWindow) {
             this.hide(0, {lockString: this.identifier});
             this.isHidden = true;
-        } else if (notification == 'MOTION_DETECTED') {
+        } else if (notification === 'MOTION_DETECTED') {
+            this.config.ttsEnabled = true;
             this.rescheduleInterval();
+        } else if (notification === 'MOTION_STOPPED') {
+            this.config.ttsEnabled = false;
         }
     }
 
