@@ -621,44 +621,44 @@ Module.register('MMM-MyCommute', {
 
     renderMap: function(prediction) {
 
-        // if (prediction.config.label in this.mapCache) {
-        //     this.mapCache[prediction.config.label].directionsRenderer.setDirections(prediction.rawResponse);
-        // } else {
-        //
+        if (prediction.config.label in this.mapCache) {
+            this.mapCache[prediction.config.label].directionsRenderer.setDirections(prediction.rawResponse);
+        } else {
 
-        const mapWrapper = document.createElement("div");
-        mapWrapper.className += " map";
-        mapWrapper.style.height = prediction.config.map.height;
-        mapWrapper.style.width = prediction.config.map.width;
 
-        const map = new google.maps.Map(mapWrapper, {
-            zoom: 13,
-            styles: dark_roadmap,
-            disableDefaultUI: true,
-        });
+            const mapWrapper = document.createElement("div");
+            mapWrapper.className += " map";
+            mapWrapper.style.height = prediction.config.map.height;
+            mapWrapper.style.width = prediction.config.map.width;
 
-        // trafficLayer = new google.maps.TrafficLayer({
-        //     map: map,
-        // });
+            const map = new google.maps.Map(mapWrapper, {
+                zoom: 13,
+                styles: dark_roadmap,
+                disableDefaultUI: true,
+            });
 
-        const directionsRenderer = new google.maps.DirectionsRenderer({
-            map: map,
-            directions: prediction.rawResponse,
-            suppressMarkers: true,
-            polylineOptions: {
-                strokeColor: "red"
-            }
-        });
-
-        if (prediction.config.map.hasOwnProperty("zoom")) {
-            // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
-            //     map.setZoom(prediction.config.map.zoom);
+            // trafficLayer = new google.maps.TrafficLayer({
+            //     map: map,
             // });
+
+            const directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map,
+                directions: prediction.rawResponse,
+                suppressMarkers: true,
+                polylineOptions: {
+                    strokeColor: "red"
+                }
+            });
+
+            if (prediction.config.map.hasOwnProperty("zoom")) {
+                // google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                //     map.setZoom(prediction.config.map.zoom);
+                // });
+            }
+
+            this.mapCache[prediction.config.label] = {mapWrapper, map, directionsRenderer};
+
         }
-
-        this.mapCache[prediction.config.label] = {mapWrapper, map, directionsRenderer};
-
-        // }
 
         const self = this;
         setTimeout(function() {
@@ -666,7 +666,7 @@ Module.register('MMM-MyCommute', {
             let padding = 10;
             let newBounds = self.paddedBounds(self.mapCache[prediction.config.label].map, prediction.routes[0].bounds, padding, padding, padding, padding);
             self.mapCache[prediction.config.label].map.fitBounds(newBounds);
-        }, 1000);
+        }, 3000);
 
         self.mapCache[prediction.config.label].map.fitBounds(prediction.routes[0].bounds);
         return this.mapCache[prediction.config.label].mapWrapper;
