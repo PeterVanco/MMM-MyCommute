@@ -128,6 +128,9 @@ Module.register('MMM-MyCommute', {
         if (this.loading !== true) {
             this.refresh();
         }
+        if (this.interval != null) {
+            clearInterval(this.interval);
+        }
         this.interval = setInterval(function() {
             self.refresh();
         }, this.config.pollFrequency);
