@@ -24,7 +24,7 @@ Module.register('MMM-MyCommute', {
         colorCodeTravelTime: true,
         moderateTimeThreshold: 1.1,
         poorTimeThreshold: 1.3,
-        nextTransitVehicleDepartureFormat: "[next at] h:mm a",
+        nextTransitVehicleDepartureFormat: "[next at]", //h:mm a
         travelTimeFormat: "m [min]",
         travelTimeFormatTrim: "left",
         pollFrequency: 10 * 60 * 1000, //every ten minutes, in milliseconds
